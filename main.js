@@ -38,41 +38,47 @@ var treeElement = document.getElementById('tree');
 const allElements = []
 // literate over the treeData and create the tree structure in treeElement
 function createTree(data, element) {
-  var namedContainer = document.createElement('div');
-  namedContainer.style.paddingLeft = '15px';
-  namedContainer.innerHTML = data.name
-  namedContainer.draggable = true
-  const childContainer = document.createElement('div');
-  namedContainer.appendChild(childContainer);
-  
-  element.appendChild(namedContainer);
+  const containerElement = document.createElement('div');
+  const titleElement = document.createElement('div');
+  titleElement.classList.add('tree-title');
+  titleElement.innerHTML = data.name
+  titleElement.draggable = true
+  containerElement.appendChild(titleElement)
+  containerElement.style.paddingLeft = '15px';
+  const childrenElement = document.createElement('div');
+  element.appendChild(containerElement);
+  containerElement.appendChild(childrenElement);
   if(!data.children){
-    namedContainer.style.cursor = 'default'
-    namedContainer.addEventListener('click', function(e){
+    containerElement.style.cursor = 'default'
+    containerElement.addEventListener('click', function(e){
       e.stopPropagation()
     })
     return 
   } 
-  allElements.push({childContainer, namedContainer})
+  allElements.push({childrenElement, titleElement})
   data.children.forEach(child => {
-    createTree(child, childContainer)
+    createTree(child, childrenElement)
   })
-    namedContainer.style.cursor = 'pointer';
-    namedContainer.classList.add('caret-down');
-    namedContainer.addEventListener('click', function(e) {
+    titleElement.classList.add('caret-down');
+    titleElement.classList.add('tree-title-collapse')
+    titleElement.addEventListener('click', function(e) {
     e.stopPropagation();
-    if(!childContainer) return
-    if(childContainer.style.display === 'none')
+    if(!childrenElement) return
+    if(childrenElement.style.display === 'none')
     {
-      childContainer.style.display = 'block';
+      childrenElement.style.display = 'block';
       this.classList.remove('caret-left');
       this.classList.add('caret-down');
+      this.classList.add('tree-title-collapse');
+      this.classList.remove('tree-title-expand');
     }
     else
     {
-      childContainer.style.display = 'none';
+      childrenElement.style.display = 'none';
       this.classList.remove('caret-down');
       this.classList.add('caret-left');
+      this.classList.add('tree-title-expand');
+      this.classList.remove('tree-title-collapse');
     }
   })
 }
@@ -84,21 +90,21 @@ for(const element of treeData)
 const collapseAllElement = document.getElementById('collapse-all');
 
 collapseAllElement.addEventListener('click', function(e) {
-  for(const {childContainer, namedContainer} of allElements)
+  for(const {childrenElement, titleElement} of allElements)
   {
-    childContainer.style.display = 'none';
-    namedContainer.classList.remove('caret-down');
-    namedContainer.classList.add('caret-left');
+    childrenElement.style.display = 'none';
+    titleElement.classList.remove('caret-down');
+    titleElement.classList.add('caret-left');
   }
 })
 
 const expandAllElement = document.getElementById('expand-all');
 
 expandAllElement.addEventListener('click', function(e) {
-  for(const {childContainer, namedContainer} of allElements)
+  for(const {childrenElement, titleElement} of allElements)
   {
-    childContainer.style.display = 'block';
-    namedContainer.classList.remove('caret-left');
-    namedContainer.classList.add('caret-down');
+    childrenElement.style.display = 'block';
+    titleElement.classList.remove('caret-left');
+    titleElement.classList.add('caret-down');
   }
 })

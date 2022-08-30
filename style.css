@@ -1,5 +1,31 @@
 .clickable{
   cursor: pointer;
+  transition: color 0.1s ease-in-out;
+}
+.hover-blue:hover{
+  color: #00a0d2;
+}
+.hover-red:hover{
+  color: #e74c3c;
+}
+.hover-green:hover{
+  color: #2ecc71;
+}
+.tree-title-collapse, .tree-title-expand{
+  transition: color 0.1s ease-in-out;
+  cursor: pointer;
+}
+.tree-title-expand:hover{
+  color:rgb(42, 184, 42);
+}
+.tree-title-collapse:hover{
+  color:#e74c3c ;
+}
+.tree-title-collapse + div{
+  transition: all 0.1s ease-in-out;
+}
+.tree-title-collapse:hover + div{
+  color:rgb(177, 177, 177);
 }
 
 .caret-down::before{
