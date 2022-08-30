@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 var treeData = 
   [
     {
-      "name": "Level 2: A",
+      "name": "Level 1: A",
       "children": [
         {
           "name": "Son of A",
@@ -21,7 +21,7 @@ var treeData =
       ]
     },
     {
-      "name": "Level 2: B",
+      "name": "Level 1: B",
       "children": [
         {
           "name": "Son of B"
@@ -39,14 +39,20 @@ const allElements = []
 // literate over the treeData and create the tree structure in treeElement
 function createTree(data, element) {
   var namedContainer = document.createElement('div');
+  namedContainer.style.paddingLeft = '15px';
   namedContainer.innerHTML = data.name
   namedContainer.draggable = true
   const childContainer = document.createElement('div');
-  namedContainer.style.marginLeft = '20px';
   namedContainer.appendChild(childContainer);
   
   element.appendChild(namedContainer);
-  if(!data.children) return 
+  if(!data.children){
+    namedContainer.style.cursor = 'default'
+    namedContainer.addEventListener('click', function(e){
+      e.stopPropagation()
+    })
+    return 
+  } 
   allElements.push({childContainer, namedContainer})
   data.children.forEach(child => {
     createTree(child, childContainer)

@@ -2,7 +2,6 @@
   cursor: pointer;
 }
 
-
 .caret-down::before{
   margin-left: -12px;
   margin-top: 6px;
