@@ -42,7 +42,6 @@ function createTree(data, element) {
   const titleElement = document.createElement('div');
   titleElement.classList.add('tree-title');
   titleElement.innerHTML = data.name
-  titleElement.draggable = true
   containerElement.appendChild(titleElement)
   containerElement.style.paddingLeft = '15px';
   const childrenElement = document.createElement('div');
@@ -55,6 +54,7 @@ function createTree(data, element) {
     })
     return 
   } 
+  titleElement.draggable = true 
   allElements.push({childrenElement, titleElement})
   data.children.forEach(child => {
     createTree(child, childrenElement)
