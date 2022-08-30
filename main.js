@@ -40,6 +40,7 @@ const allElements = []
 function createTree(data, element) {
   var namedContainer = document.createElement('div');
   namedContainer.innerHTML = data.name
+  namedContainer.draggable = true
   const childContainer = document.createElement('div');
   namedContainer.style.marginLeft = '20px';
   namedContainer.appendChild(childContainer);
