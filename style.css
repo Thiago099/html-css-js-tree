@@ -1,7 +1,12 @@
+.menu-icon{
+  font-size: 1.2em;
+  padding-left: 3px;
+}
 .clickable{
   cursor: pointer;
   transition: color 0.1s ease-in-out;
 }
+
 .hover-blue:hover{
   color: #00a0d2;
 }

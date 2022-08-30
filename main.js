@@ -34,7 +34,15 @@ var treeData =
   ];
 
 
-var treeElement = document.getElementById('tree');
+const treeElement = document.getElementById('tree');
+const expandAllElement = document.createElement('i')
+const collapseAllElement = document.createElement('i')
+collapseAllElement.classList.add('fa-solid','fa-square-minus','clickable','hover-red','menu-icon')
+expandAllElement.classList.add('fa-solid','fa-square-plus','clickable','hover-green','menu-icon')
+treeElement.appendChild(collapseAllElement)
+treeElement.appendChild(expandAllElement)
+
+
 const allElements = []
 // literate over the treeData and create the tree structure in treeElement
 function createTree(data, element) {
@@ -87,7 +95,6 @@ for(const element of treeData)
   createTree(element, treeElement);
 }
 
-const collapseAllElement = document.getElementById('collapse-all');
 
 collapseAllElement.addEventListener('click', function(e) {
   for(const {childrenElement, titleElement} of allElements)
@@ -100,7 +107,6 @@ collapseAllElement.addEventListener('click', function(e) {
   }
 })
 
-const expandAllElement = document.getElementById('expand-all');
 
 expandAllElement.addEventListener('click', function(e) {
   for(const {childrenElement, titleElement} of allElements)
