@@ -95,6 +95,8 @@ collapseAllElement.addEventListener('click', function(e) {
     childrenElement.style.display = 'none';
     titleElement.classList.remove('caret-down');
     titleElement.classList.add('caret-left');
+    titleElement.classList.add('tree-title-expand');
+    titleElement.classList.remove('tree-title-collapse');
   }
 })
 
@@ -106,5 +108,7 @@ expandAllElement.addEventListener('click', function(e) {
     childrenElement.style.display = 'block';
     titleElement.classList.remove('caret-left');
     titleElement.classList.add('caret-down');
+    titleElement.classList.add('tree-title-collapse');
+    titleElement.classList.remove('tree-title-expand');
   }
 })
