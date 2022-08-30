@@ -14,6 +14,7 @@
 .tree-title-collapse, .tree-title-expand{
   transition: color 0.1s ease-in-out;
   cursor: pointer;
+  display: inline;
 }
 .tree-title-expand:hover{
   color:rgb(42, 184, 42);
