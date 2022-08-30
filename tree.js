@@ -5,6 +5,7 @@ import './tree.css'
 
 export function renderTree(treeElement,treeData)
 {
+    treeElement.classList.add('tree')
     const expandAllElement = document.createElement('i')
     const collapseAllElement = document.createElement('i')
     collapseAllElement.classList.add('fa-solid','fa-square-minus','clickable','hover-red','menu-icon')
