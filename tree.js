@@ -2,8 +2,24 @@
 import '@fortawesome/fontawesome-free/css/all.css'
 import './tree.css'
 
+function expand(childrenElement, titleElement)
+{
+    childrenElement.style.display = 'block';
+    titleElement.classList.add('caret-down');
+    titleElement.classList.add('tree-title-collapse');
+    titleElement.classList.remove('caret-left');
+    titleElement.classList.remove('tree-title-expand');
+}
+function collapse(childrenElement, titleElement)
+{
+    childrenElement.style.display = 'none';
+    titleElement.classList.add('caret-left');
+    titleElement.classList.add('tree-title-expand');
+    titleElement.classList.remove('caret-down');
+    titleElement.classList.remove('tree-title-collapse');
+}
 
-export function renderTree(treeElement,treeData)
+export function renderTree(treeElement,treeData,defaultCollapsed=false)
 {
     treeElement.classList.add('tree')
     const expandAllElement = document.createElement('i')
@@ -27,38 +43,33 @@ export function renderTree(treeElement,treeData)
         element.appendChild(containerElement);
         containerElement.appendChild(childrenElement);
         if(!data.children){
-        containerElement.style.cursor = 'default'
-        containerElement.addEventListener('click', function(e){
-            e.stopPropagation()
-        })
-        return 
+            return 
         } 
         titleElement.draggable = true 
         allElements.push({childrenElement, titleElement})
+
         data.children.forEach(child => {
-        createTree(child, childrenElement)
+            createTree(child, childrenElement)
         })
-        titleElement.classList.add('caret-down');
-        titleElement.classList.add('tree-title-collapse')
-        titleElement.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if(!childrenElement) return
-        if(childrenElement.style.display === 'none')
+        if(defaultCollapsed)
         {
-            childrenElement.style.display = 'block';
-            this.classList.remove('caret-left');
-            this.classList.add('caret-down');
-            this.classList.add('tree-title-collapse');
-            this.classList.remove('tree-title-expand');
+            collapse(childrenElement, titleElement)
         }
         else
         {
-            childrenElement.style.display = 'none';
-            this.classList.remove('caret-down');
-            this.classList.add('caret-left');
-            this.classList.add('tree-title-expand');
-            this.classList.remove('tree-title-collapse');
+            expand(childrenElement, titleElement)
         }
+        titleElement.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if(!childrenElement) return
+            if(childrenElement.style.display === 'none')
+            {
+                expand(childrenElement, titleElement)
+            }
+            else
+            {
+                collapse(childrenElement, titleElement)
+            }
         })
     }
     for(const element of treeData)
@@ -70,11 +81,7 @@ export function renderTree(treeElement,treeData)
     collapseAllElement.addEventListener('click', function(e) {
         for(const {childrenElement, titleElement} of allElements)
         {
-        childrenElement.style.display = 'none';
-        titleElement.classList.remove('caret-down');
-        titleElement.classList.add('caret-left');
-        titleElement.classList.add('tree-title-expand');
-        titleElement.classList.remove('tree-title-collapse');
+            collapse(childrenElement, titleElement)
         }
     })
 
@@ -82,11 +89,7 @@ export function renderTree(treeElement,treeData)
     expandAllElement.addEventListener('click', function(e) {
         for(const {childrenElement, titleElement} of allElements)
         {
-        childrenElement.style.display = 'block';
-        titleElement.classList.remove('caret-left');
-        titleElement.classList.add('caret-down');
-        titleElement.classList.add('tree-title-collapse');
-        titleElement.classList.remove('tree-title-expand');
+            expand(childrenElement, titleElement)
         }
     })
 }
