@@ -1,6 +1,6 @@
 
 import '@fortawesome/fontawesome-free/css/all.css'
-import { renderTree } from './tree';
+import { renderTree } from './tree/tree';
 
 var treeData = 
   [
